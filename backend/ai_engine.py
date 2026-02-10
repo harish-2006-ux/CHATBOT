@@ -3,14 +3,14 @@ import google.generativeai as genai
 
 """
 AI Engine for Shadow Interpreter
-Uses Google Gemini 1.5 Flash (current, supported model)
+Uses Google Gemini 1.5 Flash (supported model)
 """
 
-# Configure Gemini with API key from environment variable
+# Configure Gemini using API key from environment variables
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-# Use a CURRENT model (gemini-pro is deprecated)
-model = genai.GenerativeModel("models/gemini-1.5-flash")
+# IMPORTANT: model name WITHOUT 'models/' prefix
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 
 def interpret_query(message: str) -> str:
@@ -23,5 +23,4 @@ def interpret_query(message: str) -> str:
         return "No response generated. Please rephrase your query."
 
     except Exception as e:
-        # Temporary debug (remove later if you want)
         return f"AI Error: {str(e)}"
