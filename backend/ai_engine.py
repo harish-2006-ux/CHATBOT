@@ -3,26 +3,24 @@ import google.generativeai as genai
 
 """
 AI Engine for Shadow Interpreter
-Uses Google PaLM Text-Bison model (stable, supported by v1beta)
+Uses Google Gemini via the official GenerativeModel API
 """
 
 # Configure API key from environment variable
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
+# Use a supported model
+model = genai.GenerativeModel("gemini-pro")
+
 
 def interpret_query(message: str) -> str:
     try:
-        response = genai.generate_text(
-            model="models/text-bison-001",
-            prompt=message,
-            temperature=0.7,
-            max_output_tokens=512
-        )
+        response = model.generate_content(message)
 
-        if response and "result" in response and response["result"]:
-            return response["result"].strip()
+        if response and response.text:
+            return response.text.strip()
 
-        return "No response generated. Please rephrase your query."
+        return "No response generated. Please rephrase your question."
 
     except Exception as e:
         return f"AI Error: {str(e)}"
