@@ -1,6 +1,4 @@
-/* =====================================
-   GLOBAL RESET
-===================================== */
+/* ========= RESET ========= */
 * {
   margin: 0;
   padding: 0;
@@ -14,101 +12,64 @@ body {
   overflow: hidden;
 }
 
-/* =====================================
-   HOME SCREEN (CENTERED)
-===================================== */
+/* ========= LAYOUT ========= */
 .home-screen {
   height: 100vh;
   width: 100%;
-  background: radial-gradient(circle at center, #020a12, #000);
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-.home-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  perspective: 1200px; /* enables 3D */
-  text-align: center;
-}
-
-/* =====================================
-   JIN-WOO 3D PRESENCE
-===================================== */
-.jinwoo-3d,
-.jinwoo-wrapper {
-  position: relative;
-  width: 260px;
-  transform-style: preserve-3d;
-  animation: float 4s ease-in-out infinite;
-  filter: drop-shadow(0 0 70px rgba(0, 229, 255, 0.6));
-  cursor: grab;
-  transition: transform 0.2s ease;
-  will-change: transform;
-}
-
-.jinwoo-3d img,
-.jinwoo-wrapper img {
+/* ========= JIN-WOO SECTION ========= */
+.jinwoo-section {
   width: 100%;
-  transform: translateZ(60px);
-  user-select: none;
-  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  transition: width 0.9s ease;
 }
 
-/* Floating / breathing animation */
+.jinwoo-3d {
+  width: 260px;
+  position: relative;
+  animation: float 4s ease-in-out infinite;
+  transition: all 0.9s ease;
+}
+
+.jinwoo-3d img {
+  width: 100%;
+}
+
 @keyframes float {
-  0%   { transform: translateY(0px) rotateX(0deg); }
-  50%  { transform: translateY(-14px) rotateX(3deg); }
-  100% { transform: translateY(0px) rotateX(0deg); }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
 }
 
-/* Smooth settle after drag */
-.jinwoo-wrapper.release,
-.jinwoo-3d.release {
-  transition: transform 0.6s ease;
-}
-
-/* =====================================
-   SHADOW AURA (DEPTH EFFECT)
-===================================== */
 .shadow-aura {
   position: absolute;
-  inset: -60px;
-  background: radial-gradient(
-    circle,
-    rgba(0, 229, 255, 0.774),
-    transparent 40%
-  );
+  inset: -50px;
+  background: radial-gradient(circle, rgba(0,229,255,0.6), transparent 55%);
   filter: blur(60px);
   opacity: 0.6;
-  transform: translateZ(-40px);
-  pointer-events: none;
-  animation: auraPulse 3s ease-in-out infinite;
 }
 
-@keyframes auraPulse {
-  0%   { opacity: 0.4; }
-  50%  { opacity: 0.9; }
-  100% { opacity: 0.4; }
+/* ========= HOME CONTENT ========= */
+.home-content {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  transition: opacity 0.5s ease;
 }
 
-/* =====================================
-   HOME TEXT & BUTTON
-===================================== */
 .home-title {
-  margin-top: 20px;
-  font-size: 30px;
+  font-size: 32px;
   color: #00e5ff;
-  letter-spacing: 5px;
+  letter-spacing: 4px;
 }
 
 .home-subtitle {
-  margin: 10px 0 26px;
+  margin: 12px 0 26px;
   color: #9befff;
-  font-size: 14px;
 }
 
 .enter-btn {
@@ -116,155 +77,84 @@ body {
   border: 2px solid #00e5ff;
   color: #00e5ff;
   padding: 12px 36px;
-  font-size: 16px;
-  letter-spacing: 2px;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.enter-btn:hover {
-  background: #00e5ff;
-  color: #000;
-}
-
-/* =====================================
-   CHAT CONTAINER
-===================================== */
+/* ========= CHAT ========= */
 .chat-container {
-  width: 420px;
-  height: 620px;
-  margin: 40px auto;
+  flex: 1;
+  height: 90vh;
+  margin-right: 30px;
   background: #0b0b0b;
   border: 2px solid #00e5ff;
-  border-radius: 12px ;
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 35px rgba(0, 229, 255, 0.45);
+  opacity: 0;
+  transform: translateX(60px);
+  transition: all 0.9s ease;
 }
 
-/* =====================================
-   CHAT HEADER
-===================================== */
 .header {
-  position: relative;
   padding: 14px;
-  border-radius: 12px 12px 0 0;
   background: #050505;
-  text-align: center;
   border-bottom: 1px solid #111;
 }
 
 .assistant-name {
   color: #00e5ff;
-  font-weight: 600;
-  letter-spacing: 2px;
 }
 
-.assistant-status {
-  font-size: 12px;
-  color: #9befff;
-  margin-top: 4px;
-}
-
-/* Voice toggle */
-.voice-toggle {
-  position: absolute;
-  right: 14px;
-  top: 14px;
-  font-size: 12px;
-  color: #9befff;
-}
-
-.voice-toggle input {
-  accent-color: #00e5ff;
-  cursor: pointer;
-}
-
-/* =====================================
-   CHAT AREA
-===================================== */
 #chat-box {
   flex: 1;
   padding: 14px;
   overflow-y: auto;
-  scrollbar-width: thin;
 }
 
-/* User messages */
-.user {
-  text-align: right;
-  margin: 8px 0;
-}
+.user { text-align: right; margin: 6px 0; }
+.bot { text-align: left; margin: 6px 0; color: #00e5ff; }
 
-.user span {
-  background: #1a1a1a;
-  padding: 8px 12px;
-  border-radius: 10px;
-  display: inline-block;
-  max-width: 80%;
-}
-
-/* AI messages */
-.bot {
-  text-align: left;
-  margin: 8px 0;
-  color: #00e5ff;
-  font-weight: 500;
-}
-
-.bot span {
-  background: #050505;
-  padding: 8px 12px;
-  border-radius: 10px;
-  display: inline-block;
-  max-width: 80%;
-  box-shadow: inset 0 0 6px rgba(0, 229, 255, 0.2);
-}
-
-/* =====================================
-   INPUT AREA
-===================================== */
 .input-box {
   display: flex;
   padding: 12px;
-  border-radius: 0 0 12px 12px;
   background: #050505;
-  border-top: 1px solid #111;
 }
 
 .input-box input {
   flex: 1;
   background: #0f0f0f;
   border: 1px solid #00e5ff;
-  border-radius: 6px;
-  padding: 10px;
   color: #fff;
-  outline: none;
-}
-
-.input-box input::placeholder {
-  color: #777;
+  padding: 10px;
 }
 
 .input-box button {
   margin-left: 10px;
   background: #00e5ff;
   border: none;
-  border-radius: 6px;
   padding: 0 18px;
-  font-size: 16px;
-  cursor: pointer;
-  color: #000;
-  transition: background 0.2s ease;
 }
 
-.input-box button:hover {
-  background: #6fe7ff;
+/* ========= DOMAIN ACTIVE ========= */
+.domain-active .home-content {
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* =====================================
-   UTILITIES
-===================================== */
+.domain-active .jinwoo-section {
+  width: 260px;
+}
+
+.domain-active .jinwoo-3d {
+  width: 180px; /* reduced Jin-Woo size */
+  animation: none;
+}
+
+.domain-active .chat-container {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 .hidden {
   display: none;
 }

@@ -1,57 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Shadow Interpreter</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Shadow Interpreter</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- HOME -->
-<!-- HOME -->
-<div class="home-screen" id="home">
-  
-  <div class="home-center">
+<!-- HOME / DOMAIN -->
+<div class="home-screen">
 
-    <!-- 3D Jin-Woo Image -->
+  <!-- LEFT: JIN-WOO -->
+  <div class="jinwoo-section">
     <div class="jinwoo-3d" id="jinwoo">
       <img src="asset/Sung_Jinwoo.webp" alt="Shadow Interpreter">
       <div class="shadow-aura"></div>
     </div>
-
-    <!-- Text Content -->
-    <h1 class="home-title">SHADOW INTERPRETER</h1>
-    <p class="home-subtitle">Command authority awaits</p>
-
-    <button class="enter-btn" onclick="enterDomain()">Enter Domain</button>
-
   </div>
 
-</div>
+  <!-- CENTER CONTENT (HIDDEN AFTER ENTER) -->
+  <div class="home-content" id="homeContent">
+    <h1 class="home-title">SHADOW INTERPRETER</h1>
+    <p class="home-subtitle">Command authority awaits</p>
+    <button class="enter-btn" onclick="enterDomain()">Enter Domain</button>
+  </div>
 
-<!-- CHAT -->
-<div class="chat-container" id="chat">
+  <!-- RIGHT: CHAT -->
+  <div class="chat-container hidden" id="chat">
     <div class="header">
-        <div>
-            <div class="assistant-name">AI INTERPRETER</div>
-            <div class="assistant-status">• Shadow Active</div>
-        </div>
+      <div>
+        <div class="assistant-name">AI INTERPRETER</div>
+        <div class="assistant-status">• Shadow Active</div>
+      </div>
 
-        <!-- Voice Toggle -->
-        <div class="voice-toggle">
-            <label>
-                <input type="checkbox" id="voiceToggle" checked>
-                Voice
-            </label>
-        </div>
+      <div class="voice-toggle">
+        <label>
+          <input type="checkbox" id="voiceToggle" checked>
+          Voice
+        </label>
+      </div>
     </div>
 
     <div id="chat-box"></div>
 
     <div class="input-box">
-        <input id="user-input" placeholder="Issue a command..." autocomplete="off">
-        <button id="send-btn">➤</button>
+      <input id="user-input" placeholder="Issue a command..." autocomplete="off">
+      <button id="send-btn">➤</button>
     </div>
+  </div>
+
 </div>
 
 <script src="script.js"></script>

@@ -6,15 +6,19 @@ from db import init_db, save_chat
 app = Flask(__name__)
 CORS(app)
 
+# Initialize database
 init_db()
+
 
 @app.route("/")
 def index():
     return "Shadow Interpreter API is running", 200
 
+
 @app.route("/health")
 def health():
     return "OK", 200
+
 
 @app.route("/chat", methods=["POST"])
 def chat():
@@ -27,10 +31,14 @@ def chat():
     if not message:
         return jsonify({"reply": "Empty command rejected."})
 
-    reply = interpret_query(message)
-    save_chat(message, reply)
+    try:
+        reply = interpret_query(message)
+    except Exception:
+        reply = "Shadow link unstable. Retry command."
 
+    save_chat(message, reply)
     return jsonify({"reply": reply})
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
