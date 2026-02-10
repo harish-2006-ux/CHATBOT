@@ -3,14 +3,14 @@ import google.generativeai as genai
 
 """
 AI Engine for Shadow Interpreter
-Uses Google Gemini 1.5 Flash (supported model)
+Uses Google Gemini 1.0 Pro (stable, supported by v1beta)
 """
 
 # Configure Gemini using API key from environment variables
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-# IMPORTANT: model name WITHOUT 'models/' prefix
-model = genai.GenerativeModel("gemini-1.5-flash")
+# IMPORTANT: Use a model supported by v1beta
+model = genai.GenerativeModel("gemini-1.0-pro")
 
 
 def interpret_query(message: str) -> str:
