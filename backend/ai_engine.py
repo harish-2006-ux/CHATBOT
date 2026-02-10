@@ -1,26 +1,33 @@
 import os
-import google.generativeai as genai
+from openai import OpenAI
 
 """
 AI Engine for Shadow Interpreter
-Uses Google Gemini via the official GenerativeModel API
+Uses OpenAI Chat Completions API
 """
 
-# Configure API key from environment variable
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-
-# Use a supported model
-model = genai.GenerativeModel("gemini-pro")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 def interpret_query(message: str) -> str:
     try:
-        response = model.generate_content(message)
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are Shadow Interpreter, an intelligent AI assistant."
+                },
+                {
+                    "role": "user",
+                    "content": message
+                }
+            ],
+            temperature=0.7,
+            max_tokens=400
+        )
 
-        if response and response.text:
-            return response.text.strip()
-
-        return "No response generated. Please rephrase your question."
+        return response.choices[0].message.content.strip()
 
     except Exception as e:
         return f"AI Error: {str(e)}"
