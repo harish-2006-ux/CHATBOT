@@ -2,8 +2,8 @@ import os
 import cohere
 
 """
-Pure AI Engine using Cohere
-No fallback, no rules, no local logic
+Pure AI Engine using Cohere Chat API
+(Generate API is deprecated)
 """
 
 # Initialize Cohere client
@@ -11,18 +11,15 @@ co = cohere.Client(os.getenv("COHERE_API_KEY"))
 
 
 def interpret_query(message: str) -> str:
-    """
-    Sends user input directly to Cohere AI
-    and returns the AI-generated response.
-    """
     try:
-        response = co.generate(
-            model="command",
-            prompt=message,
-            max_tokens=300,
-            temperature=0.7
+        response = co.chat(
+            model="command-r",
+            message=message,
+            temperature=0.7,
+            max_tokens=300
         )
-        return response.generations[0].text.strip()
+
+        return response.text.strip()
 
     except Exception as e:
         return f"AI Error: {str(e)}"
