@@ -1,33 +1,28 @@
 import os
-from openai import OpenAI
+import cohere
 
 """
-AI Engine for Shadow Interpreter
-Uses OpenAI Chat Completions API
+Pure AI Engine using Cohere
+No fallback, no rules, no local logic
 """
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Initialize Cohere client
+co = cohere.Client(os.getenv("COHERE_API_KEY"))
 
 
 def interpret_query(message: str) -> str:
+    """
+    Sends user input directly to Cohere AI
+    and returns the AI-generated response.
+    """
     try:
-        response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are Shadow Interpreter, an intelligent AI assistant."
-                },
-                {
-                    "role": "user",
-                    "content": message
-                }
-            ],
-            temperature=0.7,
-            max_tokens=400
+        response = co.generate(
+            model="command",
+            prompt=message,
+            max_tokens=300,
+            temperature=0.7
         )
-
-        return response.choices[0].message.content.strip()
+        return response.generations[0].text.strip()
 
     except Exception as e:
         return f"AI Error: {str(e)}"
